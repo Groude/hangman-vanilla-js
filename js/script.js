@@ -4,8 +4,14 @@ const guessesElement = document.querySelector('#guesses');
 let game;
 
 const render = () => {
-  puzzleElement.textContent = game.puzzle;
+  puzzleElement.innerHTML = ''
   guessesElement.textContent = game.statusMessage;
+
+  game.puzzle.split('').forEach((letter) => {
+    letterEl = document.createElement('span');
+    letterEl.textContent = letter;
+    puzzleElement.appendChild(letterEl);
+  });
 }
 
 window.addEventListener('keypress', (e) => {
@@ -15,7 +21,7 @@ window.addEventListener('keypress', (e) => {
 });
 
 const startGame = async () => {
-  const puzzle = await getPuzzle('2');
+  const puzzle = await getPuzzle('1');
   game = new Hangman(puzzle, 5);
   render();
 }
